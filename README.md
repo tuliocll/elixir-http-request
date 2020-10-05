@@ -1,5 +1,12 @@
 # HttpRequest
 
+<div align="center">
+
+![](https://elixir-lang.org/images/logo/logo.png)
+
+
+</div>
+
 **A simple "application" to make requests n times for a url**
 **this is a study project with elixir and i used it to do a simple stress test on my server/database**
 
