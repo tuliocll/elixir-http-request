@@ -24,7 +24,7 @@ defmodule HttpRequest do
       Finalizado requisições para www.google.com
   """
   def execute(n, url) do
-    result = make_request(url, '')
+    result = make_request(url, :null)
 
     {status, _, _} = result
 
@@ -87,7 +87,7 @@ defmodule HttpRequest do
 
     Application.ensure_all_started(:ssl)
 
-    if token do
+    if token != :null do
       {:ok, result} =
         :httpc.request(
           :get,
@@ -99,9 +99,18 @@ defmodule HttpRequest do
           []
         )
 
+        if(status == :error) do
+          if(result == {:no_scheme}) do
+          IO.puts("Por favor, digite o http ou  https")
+        else
+          IO.puts("Erro ao processar solicitacao")
+        end
+          exit(:shutdown)
+        else
+
       result
     else
-      {:ok, result} =
+      {status,result} =
         :httpc.request(
           :get,
           {url, []},
@@ -109,7 +118,17 @@ defmodule HttpRequest do
           []
         )
 
+        if(status == :error) do
+          if(result == {:no_scheme}) do
+          IO.puts("Por favor, digite o http ou  https")
+        else
+          IO.puts("Erro ao processar solicitacao")
+        end
+          exit(:shutdown)
+        else
+
       result
+    end
     end
   end
 end

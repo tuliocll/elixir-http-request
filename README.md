@@ -17,12 +17,12 @@ You can execute the Iex and call the module and the function
 iex -S mix
 ```
 ```bash
-iex(1)>HttpRequest.execute(5, 'www.google.com')
+iex(1)>HttpRequest.execute(5, 'https://www.google.com')
 ```
 This will make five request for 'www.google.com'.
 You can pass a token too:
 ```bash
-iex(1)>HttpRequest.execute(5, 'www.google.com', 'Bearer 123123123')
+iex(1)>HttpRequest.execute(5, 'https://www.google.com', 'Bearer 123123123')
 ```
 And you can check the doc running:
 ```bash
