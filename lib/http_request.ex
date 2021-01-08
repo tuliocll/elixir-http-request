@@ -82,31 +82,27 @@ defmodule HttpRequest do
     IO.puts("Faltando quantidade e url")
   end
 
+  @doc """
+  Iniciar requests com token
+  """
   def make_request(url, token) do
     Application.ensure_all_started(:inets)
 
     Application.ensure_all_started(:ssl)
 
     if token != :null do
-      {:ok, result} =
+      {msg, result} =
         :httpc.request(
           :get,
           {url,
            [
-             {'Authorization', token}
+            {to_charlist("authorization"),  to_charlist(token)},
            ]},
           [],
           []
         )
 
-        if(status == :error) do
-          if(result == {:no_scheme}) do
-          IO.puts("Por favor, digite o http ou  https")
-        else
-          IO.puts("Erro ao processar solicitacao")
-        end
-          exit(:shutdown)
-        else
+        IO.puts(msg)
 
       result
     else
